@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoLife Time Tracker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-hourglass-half"></i> ChronoLife Time Tracker</h1>
+            <p class="tagline">Track your time in days, months, years and life</p>
+            <div class="current-time" id="currentTime">Loading time...</div>
+        </header>
+
+        <div class="dashboard">
+            <!-- Day Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Day Progress</h2>
+                        <p class="card-subtitle">24-hour cycle completion</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="dayProgressFill"
+                            style="width: 0%; background: linear-gradient(90deg, #886615, #886615);"></div>
+                        <div class="progress-text" id="dayProgressText">0%</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value" id="dayHoursLeft">24h</div>
+                        <div class="stat-label">Hours Left</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="dayMinutesLeft">1440m</div>
+                        <div class="stat-label">Minutes Left</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="daySecondsLeft">86400s</div>
+                        <div class="stat-label">Seconds Left</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Month Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Month Progress</h2>
+                        <p class="card-subtitle" id="currentMonth">Current month</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="monthProgressFill"
+                            style="width: 0%; background: linear-gradient(90deg, #886615, #886615);"></div>
+                        <div class="progress-text" id="monthProgressText">0%</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value" id="monthDaysCompleted">0</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="monthDaysLeft">31</div>
+                        <div class="stat-label">Days Left</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="monthPercentage">0%</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Year Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Year Progress</h2>
+                        <p class="card-subtitle" id="currentYear">Current year</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="yearProgressFill"
+                            style="width: 0%; background: linear-gradient(90deg, #886615, #886615);"></div>
+                        <div class="progress-text" id="yearProgressText">0%</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value" id="yearDaysCompleted">0</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="yearMonthsLeft">12</div>
+                        <div class="stat-label">Months Left</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="yearPercentage">0%</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Life Expectancy Form -->
+        <div class="life-form">
+            <h2 class="form-title"><i class="fas fa-heartbeat"></i> Life Progress Calculator</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="birthDate">Your Date of Birth</label>
+                    <input type="date" id="birthDate" value="1990-01-01">
+                </div>
+                <div class="form-group">
+                    <label for="lifeExpectancy">Life Expectancy (years)</label>
+                    <input type="number" id="lifeExpectancy" min="1" max="120" value="80">
+                    <small style="margin-top: 5px; opacity: 0.7;">Global average is about 73 years</small>
+                </div>
+            </div>
+            <button id="calculateLife">
+                <i class="fas fa-calculator"></i> Calculate Life Progress
+            </button>
+
+            <div class="life-stats" id="lifeStats" style="display: none;">
+                <div class="life-stat">
+                    <div class="life-stat-value" id="lifePercentage">0%</div>
+                    <div class="life-stat-label">Life Lived</div>
+                </div>
+                <div class="life-stat">
+                    <div class="life-stat-value" id="lifeYearsLeft">0</div>
+                    <div class="life-stat-label">Years Left</div>
+                </div>
+                <div class="life-stat">
+                    <div class="life-stat-value" id="lifeDaysLeft">0</div>
+                    <div class="life-stat-label">Days Left</div>
+                </div>
+            </div>
+
+            <!-- Life Progress Bar -->
+            <div class="progress-container" id="lifeProgressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="lifeProgressFill">
+                    </div>
+                    <div class="progress-text" id="lifeProgressText">0% of life lived</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="social-links">
+                <a href="https://twitter.com/jolliano" target="_blank" class="social-link twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://wa.link/nja1wk" target="_blank"
+                    class="social-link whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://linkedin.com/in/jolliano" target="_blank" class="social-link linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:jollianohok@gmail.com?subject=Time%20Tracker%20App&body=Check%20out%20this%20awesome%20time%20tracking%20application!"
+                    target="_blank" class="social-link gmail">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://medium.com/@jolliano" target="_blank" class="social-link medium">
+                    <i class="fab fa-medium-m"></i>
+                </a>
+            </div>
+            <p>ChronoLife Time Tracker &copy; 2026 | <b>Jolliano</b> | <b>DevWard</b></p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">Do Not Lose Your <B>BANKAI</B></p>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const currentTimeEl = document.getElementById('currentTime');
+        const dayProgressFill = document.getElementById('dayProgressFill');
+        const dayProgressText = document.getElementById('dayProgressText');
+        const dayHoursLeft = document.getElementById('dayHoursLeft');
+        const dayMinutesLeft = document.getElementById('dayMinutesLeft');
+        const daySecondsLeft = document.getElementById('daySecondsLeft');
+
+        const monthProgressFill = document.getElementById('monthProgressFill');
+        const monthProgressText = document.getElementById('monthProgressText');
+        const currentMonthEl = document.getElementById('currentMonth');
+        const monthDaysCompleted = document.getElementById('monthDaysCompleted');
+        const monthDaysLeft = document.getElementById('monthDaysLeft');
+        const monthPercentage = document.getElementById('monthPercentage');
+
+        const yearProgressFill = document.getElementById('yearProgressFill');
+        const yearProgressText = document.getElementById('yearProgressText');
+        const currentYearEl = document.getElementById('currentYear');
+        const yearDaysCompleted = document.getElementById('yearDaysCompleted');
+        const yearMonthsLeft = document.getElementById('yearMonthsLeft');
+        const yearPercentage = document.getElementById('yearPercentage');
+
+        const birthDateInput = document.getElementById('birthDate');
+        const lifeExpectancyInput = document.getElementById('lifeExpectancy');
+        const calculateLifeBtn = document.getElementById('calculateLife');
+        const lifeStats = document.getElementById('lifeStats');
+        const lifeProgressContainer = document.getElementById('lifeProgressContainer');
+        const lifeProgressFill = document.getElementById('lifeProgressFill');
+        const lifeProgressText = document.getElementById('lifeProgressText');
+        const lifePercentage = document.getElementById('lifePercentage');
+        const lifeYearsLeft = document.getElementById('lifeYearsLeft');
+        const lifeDaysLeft = document.getElementById('lifeDaysLeft');
+
+        // Set max date for birthdate input to today
+        const today = new Date();
+        const todayFormatted = today.toISOString().split('T')[0];
+        birthDateInput.max = todayFormatted;
+
+        // Update time and progress every second
+        function updateTime() {
+            const now = new Date();
+
+            // Update current time display
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            currentTimeEl.textContent = `${dateString} | ${timeString}`;
+
+            // Calculate day progress
+            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const dayProgress = (now - startOfDay) / (1000 * 60 * 60 * 24);
+            const dayPercent = (dayProgress * 100).toFixed(2);
+
+            dayProgressFill.style.width = `${dayPercent}%`;
+            dayProgressText.textContent = `${dayPercent}%`;
+
+            // Calculate time left in day
+            const hoursLeft = 23 - now.getHours();
+            const minutesLeft = 59 - now.getMinutes();
+            const secondsLeft = 59 - now.getSeconds();
+
+            dayHoursLeft.textContent = `${hoursLeft}h`;
+            dayMinutesLeft.textContent = `${(hoursLeft * 60) + minutesLeft}m`;
+            daySecondsLeft.textContent = `${((hoursLeft * 60) + minutesLeft) * 60 + secondsLeft}s`;
+
+            // Calculate month progress
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const dayOfMonth = now.getDate();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+
+            // Calculate total hours in the month (including today's hours)
+            const totalHoursInMonth = daysInMonth * 24;
+
+            // Calculate hours already passed in the month
+            // Hours from completed days (days before today) + hours passed in current day
+            const hoursFromCompletedDays = (dayOfMonth - 1) * 24;
+            const hoursPassedToday = currentHour + (currentMinute / 60);
+            const totalHoursPassed = hoursFromCompletedDays + hoursPassedToday;
+
+            // Calculate percentage
+            const monthPercent = ((totalHoursPassed / totalHoursInMonth) * 100).toFixed(2);
+
+
+            monthProgressFill.style.width = `${monthPercent}%`;
+            monthProgressText.textContent = `${monthPercent}%`;
+            currentMonthEl.textContent = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            monthDaysCompleted.textContent = dayOfMonth;
+            monthDaysLeft.textContent = daysInMonth - dayOfMonth;
+            monthPercentage.textContent = `${monthPercent}%`;
+
+            // Calculate year progress
+            const startOfYear = new Date(currentYear, 0, 1);
+            const daysInYear = ((currentYear % 4 === 0 && currentYear % 100 > 0) || currentYear % 400 === 0) ? 366 : 365;
+            const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+            // Calculate total hours in the year
+            const totalHoursInYear = daysInYear * 24;
+
+            // Calculate hours already passed in the year
+            // Hours from completed days (days before today) + hours passed in current day
+            const hoursFromCompletedDaysYearly = (dayOfYear - 1) * 24;
+            const totalHoursPassedInYear = hoursFromCompletedDaysYearly + hoursPassedToday;
+
+            // Calculate percentage
+            const yearPercent = ((totalHoursPassedInYear / totalHoursInYear) * 100).toFixed(2);
+
+            yearProgressFill.style.width = `${yearPercent}%`;
+            yearProgressText.textContent = `${yearPercent}%`;
+            currentYearEl.textContent = currentYear;
+            yearDaysCompleted.textContent = dayOfYear;
+
+            // Calculate months left in year
+            const monthsLeft = 11 - currentMonth;
+            yearMonthsLeft.textContent = monthsLeft;
+            yearPercentage.textContent = `${yearPercent}%`;
+        }
+
+        // Calculate life progress
+        function calculateLifeProgress() {
+            const birthDate = new Date(birthDateInput.value);
+            const lifeExpectancy = parseInt(lifeExpectancyInput.value);
+
+            if (!birthDateInput.value || isNaN(lifeExpectancy) || lifeExpectancy <= 0) {
+                alert('Please enter a valid birth date and life expectancy');
+                return;
+            }
+
+            // Calculate life expectancy in milliseconds
+            const lifeExpectancyMs = lifeExpectancy * 365.25 * 24 * 60 * 60 * 1000;
+            const lifeEndDate = new Date(birthDate.getTime() + lifeExpectancyMs);
+            const now = new Date();
+
+            // If birth date is in the future or life expectancy has been reached
+            if (birthDate > now) {
+                alert('Birth date cannot be in the future');
+                return;
+            }
+
+            if (now >= lifeEndDate) {
+                // Life expectancy has been reached
+                lifePercentage.textContent = '100%';
+                lifeYearsLeft.textContent = '0';
+                lifeDaysLeft.textContent = '0';
+                lifeProgressFill.style.width = '100%';
+                lifeProgressText.textContent = '100% of life lived';
+                lifeStats.style.display = 'flex';
+                lifeProgressContainer.style.display = 'block';
+                return;
+            }
+
+            // Calculate life progress percentage
+            const lifeLivedMs = now - birthDate;
+            const lifeProgressPercent = (lifeLivedMs / lifeExpectancyMs * 100).toFixed(2);
+
+            // Calculate time left
+            const lifeLeftMs = lifeEndDate - now;
+            const yearsLeft = Math.floor(lifeLeftMs / (365.25 * 24 * 60 * 60 * 1000));
+            const daysLeft = Math.floor((lifeLeftMs % (365.25 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+
+            // Update UI
+            lifePercentage.textContent = `${lifeProgressPercent}%`;
+            lifeYearsLeft.textContent = yearsLeft;
+            lifeDaysLeft.textContent = daysLeft;
+            lifeProgressFill.style.width = `${lifeProgressPercent}%`;
+            lifeProgressText.textContent = `${lifeProgressPercent}% of life lived`;
+            lifeStats.style.display = 'flex';
+            lifeProgressContainer.style.display = 'block';
+        }
+
+        // Initialize with default values
+        function initialize() {
+            // Set default birthdate to 30 years ago
+            const defaultBirthDate = new Date();
+            defaultBirthDate.setFullYear(defaultBirthDate.getFullYear() - 30);
+            birthDateInput.value = defaultBirthDate.toISOString().split('T')[0];
+
+            // Calculate initial values
+            updateTime();
+            calculateLifeProgress();
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+        }
+
+        // Event listeners
+        calculateLifeBtn.addEventListener('click', calculateLifeProgress);
+
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+
+</html>
