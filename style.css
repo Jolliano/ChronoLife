@@ -131,6 +131,7 @@ h1 {
     justify-content: center;
     font-weight: bold;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    font-size: 0.9rem;
 }
 
 .stats {
@@ -187,6 +188,7 @@ h1 {
 label {
     margin-bottom: 8px;
     font-weight: 600;
+    font-size: 1rem;
 }
 
 input {
@@ -293,20 +295,20 @@ button i {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--medium-gray);
+    background: rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--light-pink);
+    color: #FF6F61;
     font-size: 1.3rem;
     transition: all 0.3s ease;
     border: 1px solid transparent;
-    text-decoration: NONE;
+    text-decoration: none;
 }
 
 .social-link:hover {
     transform: translateY(-5px);
-    border-color: var(--light-pink);
+    border-color: #FF6F61;
 }
 
 .social-link.twitter:hover {
@@ -334,17 +336,135 @@ button i {
     color: white;
 }
 
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .current-time {
+        font-size: 1.2rem;
+        padding: 8px 16px;
+    }
+    
     .dashboard {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
-
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .card-title {
+        font-size: 1.3rem;
+    }
+    
+    .card-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        margin-right: 12px;
+    }
+    
+    .progress-text {
+        font-size: 0.8rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .life-form {
+        padding: 20px;
+    }
+    
+    .form-title {
+        font-size: 1.3rem;
+    }
+    
+    label {
+        font-size: 0.95rem;
+    }
+    
+    input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    
+    button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
     .life-stats {
         flex-direction: column;
         gap: 15px;
     }
-
+    
     .life-stat {
         min-width: auto;
+    }
+    
+    .life-stat-value {
+        font-size: 1.8rem;
+    }
+    
+    .social-links {
+        gap: 15px;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .footer {
+        margin-top: 30px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.7rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .life-stat-value {
+        font-size: 1.6rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
     }
 }
